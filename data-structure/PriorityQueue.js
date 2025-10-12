@@ -81,22 +81,16 @@ class PriorityQueue {
 }
 
 const pq = new PriorityQueue((a, b) => a - b);
-
 pq.push(5);
 pq.push(2);
 pq.push(8);
 pq.push(1);
-
 console.log(pq.pop()); // 1
 console.log(pq.pop()); // 2
 console.log(pq.pop()); // 5
 console.log(pq.pop()); // 8
 
-
-
-
 //HeapSort
-
 function heapSort(arr) {
     const pq = new PriorityQueue((a, b) => a - b); // min-heap
     for (let num of arr) {
@@ -108,7 +102,6 @@ function heapSort(arr) {
     }
     return sorted;
 }
-
 const arr = [5, 2, 8, 1, 3];
 const sortedArr = heapSort(arr);
 console.log(sortedArr);
