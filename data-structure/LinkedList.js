@@ -1,14 +1,14 @@
 class Node {
     constructor(data, next = null){
-        this.data = data; // store the node value
-        this.next = next; // reference to the next node
+        this.data = data;
+        this.next = next; 
     }
 }
 
 class SList {
     constructor(iterables){
-        this.head = null;   // first node (head of the list)
-        this._size = 0;     // number of elements
+        this.head = null;   
+        this._size = 0;     
         if(iterables){
             for(const item of iterables){
                 this.push_back(item);
@@ -16,21 +16,17 @@ class SList {
         }
     }
 
-    // Create list directly from array
     static fromArray(arr){
         return new SList(arr);
     }
 
-    // Return current list size
     get size() { return this._size;}
 
-    // Remove all elements
     clear(){
         this.head = null;
         this._size = 0;
     }
 
-    // Add element at the end
     push_back(elem){
         if(!this.head){
             this.head = new Node(elem);
@@ -45,7 +41,6 @@ class SList {
         this._size++;
     }
 
-    // Add element at the beginning
     push_front(elem){
         let newNode = new Node(elem);
         newNode.next = this.head;
@@ -53,7 +48,6 @@ class SList {
         this._size++;
     }
 
-    // Remove and return last element
     pop_back(){
         if(!this.head){
             return undefined;
@@ -74,7 +68,6 @@ class SList {
         }
     }
 
-    // Remove and return first element
     pop_front(){
         if(!this.head){
             return undefined;
@@ -85,7 +78,6 @@ class SList {
         return value;
     }
 
-    // Convert list to array
     toArray(){
         const res = [];
         let current = this.head;
@@ -96,7 +88,6 @@ class SList {
         return res;
     }
 
-    // Get first element
     front(){
         if(!this.head){
             return undefined;
@@ -104,12 +95,10 @@ class SList {
         return this.head.data;
     }
 
-    // Check if list is empty
     isEmpty(){
         return this._size === 0;
     }
 
-    // Get element at index
     at(index){
         if(index < 0 || index >= this._size){
             throw new Error('Index out of bounds');
@@ -123,7 +112,6 @@ class SList {
         return current.data;
     }
 
-    // Insert element at specific index
     insert(index, value){
         if(index < 0 || index > this._size){
             throw new Error('Index out of bounds');
@@ -133,7 +121,7 @@ class SList {
             return;
         }
 
-        if(index === this._size){  // + оптимизация для вставки в конец
+        if(index === this._size){
             this.push_back(value);
             return;
         }
@@ -149,7 +137,6 @@ class SList {
         this._size++;
     }
 
-    // Remove element by index
     erase(index){
         if(index < 0 || index >= this._size){
             throw new Error('Index out of bounds');
@@ -169,7 +156,6 @@ class SList {
         return removeNode;
     }
 
-    // Reverse the entire list
     reverse(){
         let current = this.head;
         let prev = null;
@@ -183,17 +169,13 @@ class SList {
         this.head = prev;
     }
 
-    // Remove nodes by value with custom comparator
     remove(value, equals){
         let count = 0;
-
-        // Handle head nodes
         while(this.head && equals(value, this.head.data)){
             this.head = this.head.next;
             count++;
             this._size--;
         }
-
         let cur = this.head;
         while(cur && cur.next){
             if(equals(value, cur.next.data)){
@@ -207,7 +189,6 @@ class SList {
         return count;
     }
 
-    // Sort list using MergeSort
     sort(cmp){
         cmp = typeof cmp === 'function' ? cmp : (a, b) => a - b;
         function merge(left, right, cmp){
@@ -247,7 +228,6 @@ class SList {
         this.head = merge_sort(this.head, cmp);
     }
 
-    // Merge two sorted lists into one sorted list
     merge(list, cmp){
         cmp = typeof cmp === 'function' ? cmp : (a, b) => a - b;
         if(!(list instanceof SList)) throw new Error("Argument must be an instance of SList");
@@ -264,7 +244,6 @@ class SList {
         this.sort(cmp);
     }
 
-    // Iterator support (for-of loop)
     [Symbol.iterator](){
         let current = this.head;
         return {
@@ -281,10 +260,7 @@ class SList {
     }
 }
 
-
-
-// USAGE EXAMPLES
-
+// USAGE EXAMPLE
 
 // Create list and add elements
 const list = new SList();

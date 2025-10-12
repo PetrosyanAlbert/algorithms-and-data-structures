@@ -125,10 +125,9 @@ class Deque {
     }
 
     resize() {
-        const oldArray = this.toArray(); // берём все элементы в правильном порядке
+        const oldArray = this.toArray(); 
         const oldSize = this.#blocks.length;
         const newSize = oldSize * 2;
-
         this.#blocks = [];
         for (let i = 0; i < newSize; i++) {
             this.#blocks.push(new Array(this.#blockSize));
@@ -139,7 +138,6 @@ class Deque {
         this.#frontIndex = this.#blockSize - 1;
         this.#backIndex = 0;
         this.#size = 0;
-        // заново вставляем элементы
         for (let val of oldArray) {
             this.push_back(val);
         }
@@ -147,44 +145,36 @@ class Deque {
 }
 
 function demoDequeOperations() {
-    const d = new Deque(); // create a deque with 4 blocks by default
+    const d = new Deque();
 
     console.log("=== Adding elements to the back ===");
     d.push_back(10);
     d.push_back(20);
     d.push_back(30);
     console.log("Current deque:", d.toArray());
-
     console.log("=== Adding elements to the front ===");
     d.push_front(5);
     d.push_front(1);
     console.log("Current deque:", d.toArray());
-
     console.log("=== Automatic resizing ===");
-    // add many elements to the front to trigger resize
     for(let i = 0; i < 20; i++) d.push_front(i);
     console.log("After adding 20 elements to the front (resize):", d.toArray());
-
     console.log("=== Accessing elements by index ===");
     console.log("Element at position 0:", d.at(0));
     console.log("Element at position 5:", d.at(5));
     console.log("Element at last position:", d.at(d.size - 1));
-
     console.log("=== Removing elements ===");
     console.log("pop_front():", d.pop_front());
     console.log("pop_back():", d.pop_back());
     console.log("Current deque after removal:", d.toArray());
-
     console.log("=== Iterating using for...of ===");
     for (const val of d) {
         console.log(val);
     }
-
     console.log("=== Deque size ===");
     console.log("Size:", d.size);
 }
 
-// Call the demo function
 demoDequeOperations();
 
 

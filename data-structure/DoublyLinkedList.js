@@ -1,19 +1,17 @@
-// Node of the doubly linked list
 class Node {
   constructor(data, next = null, prev = null) {
-    this.data = data;  // value stored in the node
-    this.next = next;  // pointer to the next node
-    this.prev = prev;  // pointer to the previous node
+    this.data = data;  
+    this.next = next;  
+    this.prev = prev;  
   }
 }
 
 class DoublyLinkedList {
-  #head = null; // pointer to the first node
-  #tail = null; // pointer to the last node
-  #size = 0;    // number of elements in the list
+  #head = null; 
+  #tail = null; 
+  #size = 0;
   
   constructor(iterables) {
-    // Allow creating list from an iterable (like array)
     if (iterables === undefined) return;
     if (iterables && typeof iterables[Symbol.iterator] !== 'function') {
       iterables = [iterables];
@@ -23,27 +21,22 @@ class DoublyLinkedList {
     }
   }
 
-  // Returns the number of elements
   get size() {
     return this.#size;
   }
 
-  // Checks if list is empty
   isEmpty() {
     return this.#size === 0;
   }
 
-  // Clears the list
   clear() {
     this.#head = this.#tail = null;
     this.#size = 0;
   }
 
-  // Inserts at the beginning
   push_front(value) {
     const n = new Node(value);
     if (!this.#head) { 
-      // Empty list: head and tail point to the same node
       this.#head = this.#tail = n;
     } else {
       n.next = this.#head;
@@ -53,7 +46,6 @@ class DoublyLinkedList {
     this.#size++;
   }
 
-  // Inserts at the end
   push_back(value) {
     const n = new Node(value);
     if (!this.#head) {
@@ -66,14 +58,12 @@ class DoublyLinkedList {
     this.#size++;
   }
 
-  // Removes and returns the first element
   pop_front() {
     if (!this.#head) {
       throw new Error('List is empty');
     }
     const val = this.#head.data;
     if (this.#head === this.#tail) {
-      // Only one element
       this.#head = this.#tail = null;
     } else {
       this.#head = this.#head.next;
@@ -83,14 +73,12 @@ class DoublyLinkedList {
     return val;
   }
 
-  // Removes and returns the last element
   pop_back() {
     if (!this.#head) {
       throw new Error('List is empty');
     }
     const val = this.#tail.data;
     if (this.#head === this.#tail) {
-      // Only one element
       this.#head = this.#tail = null;
     } else {
       this.#tail = this.#tail.prev;
@@ -100,7 +88,6 @@ class DoublyLinkedList {
     return val;
   }
 
-  // Returns first element without removing
   front() {
     if(this.#head){
       return this.#head.data;
@@ -109,7 +96,6 @@ class DoublyLinkedList {
     }
   }
 
-  // Returns last element without removing
   back() {
     if(this.#tail){
       return this.#tail.data;
@@ -118,14 +104,11 @@ class DoublyLinkedList {
     }
   }
 
-  // Returns element by index
   at(index) {
     if (index < 0 || index >= this.#size) {
         throw new Error('Index out of bounds');
     }
-
     let current;
-    // Optimization: choose direction based on index
     if (index < this.#size / 2) {
       current = this.#head;
       let i = 0;
@@ -144,14 +127,12 @@ class DoublyLinkedList {
     return current.data;
   }
 
-  // Inserts element at given index
   insert(index, value) {
    if (index < 0 || index > this.#size) {
     throw new Error('Index out of bounds');
    }
     if (index === 0) return this.push_front(value);
     if (index === this.#size) return this.push_back(value);
-
     let current;
     if (index < this.#size / 2) {
       current = this.#head;
@@ -168,8 +149,6 @@ class DoublyLinkedList {
         i--;
       }
     }
-
-    // Insert between "current" and "current.next"
     const n = new Node(value);
     n.next = current.next;
     n.prev = current;
@@ -178,14 +157,12 @@ class DoublyLinkedList {
     this.#size++;
   }
 
-  // Removes element at given index
   erase(index) {
     if (index < 0 || index >= this.#size) {
       throw new Error('Index out of bounds');
     }
     if (index === 0) return this.pop_front();
     if (index === this.#size - 1) return this.pop_back();
-
     let current;
     if (index < this.#size / 2) {
       current = this.#head;
@@ -202,15 +179,12 @@ class DoublyLinkedList {
         i--;
       }
     }
-
-    // Remove "current" by linking neighbors
     current.prev.next = current.next;
     current.next.prev = current.prev;
     this.#size--;
     return current.data;
   }
 
-  // Removes all nodes with given value
   remove(value, equals) {
     let count = 0;
     let current = this.#head;
@@ -234,22 +208,16 @@ class DoublyLinkedList {
     return count;
   }
 
-  // Reverses the list
   reverse() {
     if (!this.#head) return;
-
     let current = this.#head;
     let tmp = null;
-
-    // Swap next and prev for each node
     while (current) {
       tmp = current.next;
       current.next = current.prev;
       current.prev = tmp;
-      current = current.prev; // move forward (actually old "next")
+      current = current.prev; 
     }
-
-    // Swap head and tail
     tmp = this.#head;
     this.#head = this.#tail;
     this.#tail = tmp;
@@ -281,7 +249,6 @@ class DoublyLinkedList {
 
     function mergeSort(head, cmp){
       if(!head || !head.next) return head;
-
       let slow = head;
       let fast = head;
 
@@ -307,7 +274,6 @@ class DoublyLinkedList {
   merge(list, cmp) {
     if (!(list instanceof DoublyLinkedList)) throw new Error("Argument must be a DoublyLinkedList");
     cmp = typeof cmp === 'function' ? cmp : (a, b) => a - b;
-
     if (!this.#head) {
         this.#head = list.#head;
         this.#tail = list.#tail;
@@ -316,11 +282,9 @@ class DoublyLinkedList {
         list.#head.prev = this.#tail;
         this.#tail = list.#tail;
     }
-
     this.sort(cmp);
   }
 
-  // Iterator protocol → allows "for...of"
   [Symbol.iterator]() {
     let current = this.#head;
     return {
@@ -335,66 +299,48 @@ class DoublyLinkedList {
     };
   }
 }
-
-
 // =================== TESTS ===================
-
 const list = new DoublyLinkedList([10, 5, 12]);
-
 console.log("=== size / isEmpty ===");
-console.log(list.size);     // 3
-console.log(list.isEmpty());  // false
-
+console.log(list.size)
+console.log(list.isEmpty());  
 console.log("=== push_front / push_back ===");
 list.push_front(1);
 list.push_back(20);
-for (let x of list) console.log(x); // 1, 10, 5, 12, 20
-
+for (let x of list) console.log(x); 
 console.log("=== pop_front / pop_back ===");
 list.pop_front();
 list.pop_back();
-for (let x of list) console.log(x); // 10, 5, 12
-
+for (let x of list) console.log(x); 
 console.log("=== front / back ===");
-console.log(list.front()); // 10
-console.log(list.back());  // 12
-
+console.log(list.front());
+console.log(list.back());  
 console.log("=== at(index) ===");
-console.log(list.at(0)); // 10
-console.log(list.at(1)); // 5
-console.log(list.at(2)); // 12
-
+console.log(list.at(0)); 
+console.log(list.at(1)); 
+console.log(list.at(2)); 
 console.log("=== insert(index, value) ===");
 list.insert(1, 99);
-for (let x of list) console.log(x); // 10, 99, 5, 12
-
+for (let x of list) console.log(x);
 console.log("=== erase(index) ===");
 list.erase(1);
-for (let x of list) console.log(x); // 10, 5, 12
-
+for (let x of list) console.log(x);
 console.log("=== remove(value) ===");
 list.push_back(5);
 list.push_back(5);
 list.remove(5, (a, b) => a === b);
-for (let x of list) console.log(x); // 10, 12
-
+for (let x of list) console.log(x);
 console.log("=== reverse() ===");
 list.push_back(7);
 list.push_back(8);
 list.reverse();
-for (let x of list) console.log(x); // 8, 7, 12, 10
-
+for (let x of list) console.log(x); 
 console.log("=== clear() ===");
 list.clear();
-console.log(list.size);    // 0
-console.log(list.isEmpty()); // true
-
-
+console.log(list.size);    
+console.log(list.isEmpty());
 list.sort();
-for (let x of list) console.log(x); // 8, 7, 12, 10
-
-
-
+for (let x of list) console.log(x); 
 let d = new DoublyLinkedList([13, 4, 6, 3, 0]);
 list.merge(d);
-for (let x of list) console.log(x); // 8, 7, 12, 10
+for (let x of list) console.log(x);
