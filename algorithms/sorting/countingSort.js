@@ -18,7 +18,7 @@ function countingSort(arr) {
     const sortedArr = [];
 
     // Go through the counting array
-    for (let i = 0; i <= maxValue; ++i) {
+    for (let i = 0; i < newArr.length; ++i) {
         // While the count for the current number is greater than 0,
         // add the number to the sorted array and decrement the count
         while (newArr[i] > 0) {

@@ -251,7 +251,7 @@ class SList {
                 if(current){
                     const value = current.data;
                     current = current.next;
-                    return {value, done: false};
+                    return {value: value, done: false};
                 }else{
                     return {value: undefined, done: true};
                 }

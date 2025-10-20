@@ -24,8 +24,10 @@ class Queue {
         if (this.isEmpty()) {
             throw new Error("Queue underflow - queue is empty");
         }
+        const elem = this.buffer[this.front];  
         this.front = (this.front + 1) % this.#capacity;
         this.#size--;
+        return elem;     
     }
 
     get size() {
@@ -37,7 +39,9 @@ class Queue {
     }
 
     get_back() {
-        return this.buffer[this.rear];
+        if (this.isEmpty()) return undefined;
+        const index = (this.rear - 1 + this.#capacity) % this.#capacity;
+        return this.buffer[index];
     }
 
     print() {
@@ -55,21 +59,28 @@ class Queue {
     }
 }
 // ======================= 🧪 USAGE EXAMPLES =======================
-const q = new Queue(5);
-q.enqueue(10);
-q.enqueue(20); 
-q.enqueue(30);
-q.print(); 
-console.log("Front element:", q.get_front()); 
-console.log("Back element:", q.get_back());   
-q.dequeue(); 
-q.print();
-q.enqueue(40);
-q.enqueue(50);
-q.enqueue(60);
-q.print();
-console.log("Current size:", q.size);
-q.dequeue(); 
-q.dequeue(); 
-q.print(); 
-console.log("Is queue empty?", q.isEmpty()); 
+
+const debug = () => {
+    const q = new Queue(5);
+    q.enqueue(10);
+    q.enqueue(20); 
+    q.enqueue(30);
+    q.print(); 
+    console.log("Front element:", q.get_front()); 
+    console.log("Back element:", q.get_back());   
+    q.dequeue(); 
+    q.print();
+    q.enqueue(40);
+    q.enqueue(50);
+    q.enqueue(60);
+    q.print();
+    console.log("Current size:", q.size);
+    q.dequeue(); 
+    q.dequeue(); 
+    q.print(); 
+    console.log("Is queue empty?", q.isEmpty()); 
+}
+
+
+
+module.exports = Queue;

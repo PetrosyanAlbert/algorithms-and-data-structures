@@ -90,7 +90,7 @@ console.log(pq.pop()); // 2
 console.log(pq.pop()); // 5
 console.log(pq.pop()); // 8
 
-//HeapSort
+// HeapSort
 function heapSort(arr) {
     const pq = new PriorityQueue((a, b) => a - b); // min-heap
     for (let num of arr) {

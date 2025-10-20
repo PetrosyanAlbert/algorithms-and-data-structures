@@ -146,7 +146,6 @@ class Deque {
 
 function demoDequeOperations() {
     const d = new Deque();
-
     console.log("=== Adding elements to the back ===");
     d.push_back(10);
     d.push_back(20);
