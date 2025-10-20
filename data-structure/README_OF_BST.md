@@ -54,9 +54,8 @@ console.log("🔹 Level-Order (BFS):", tree.levelOrder());
 console.log("🔍 Contains 7:", tree.contains(7));
 console.log("🔍 Contains 42:", tree.containsRecursive(42));
 
-// Min, Max, Height
+// Min, Height
 console.log("⬇️ Minimum value:", tree.getMin(tree.root).data);
-console.log("⬆️ Maximum value:", tree.getMax(tree.root).data);
 console.log("🌳 Tree height:", tree.getHeight());
 
 // Removal
