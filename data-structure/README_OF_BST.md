@@ -17,13 +17,7 @@ Includes insertion, searching, deletion, and all major traversal algorithms (in-
   - Level-Order (BFS)
 - ✅ Utility methods:
   - `getMin(node)`
-  - `getMax(node)`
   - `getHeight()`
-- ⚙️ Optional extensions:
-  - `validateBST()`
-  - `isEmpty()`
-  - `getSize()`
-
 ---
 
 ## 🧠 How the BST Works
